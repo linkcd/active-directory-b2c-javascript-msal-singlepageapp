@@ -38,7 +38,7 @@
         var applicationConfig = {
             clientID: 'df8f3cb5-b668-4e11-a8ca-ad4f78cb87f4',
             authority: "https://login.microsoftonline.com/tfp/luconsultingb2c.onmicrosoft.com/b2c_1_siupin",
-            b2cScopes: ["https://luconsultingb2c.onmicrosoft.com/echo_api/read"],
+            b2cScopes: ["https://luconsultingb2c.onmicrosoft.com/B2CEchoWebAPI/read"],
             webApi: 'http://localhost:5000/hello',
         };
     </script>
@@ -54,11 +54,9 @@
                 clientApplication.acquireTokenSilent(applicationConfig.b2cScopes).then(function (accessToken) {
                     updateUI();
                 }, function (error) {
-                    alert(error);
                     clientApplication.acquireTokenPopup(applicationConfig.b2cScopes).then(function (accessToken) {
                         updateUI();
                     }, function (error) {
-                        alert(2);
                         logMessage("Error acquiring the popup:\n" + error);
                     });
                 })
@@ -100,7 +98,7 @@
                     'Authorization': 'Bearer ' + accessToken,
                 },
             }).done(function (data) {
-                logMessage("Web APi returned:\n" + JSON.stringify(data));
+                logMessage("Web APi returned:\n" + JSON.stringify(data, null, 4));
             })
                 .fail(function (jqXHR, textStatus) {
                     logMessage("Error calling the Web api:\n" + textStatus);
